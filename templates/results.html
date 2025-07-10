@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Check Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Safety Check Results</h1>
+        </div>
+        <div class="content">
+            <div class="results-section">
+                <h2>Child Information</h2>
+                <ul>
+                    <li><strong>Name:</strong> {{ child.name }}</li>
+                    <li><strong>Age (months):</strong> {{ child.age_months }}</li>
+                    <li><strong>Weight (kg):</strong> {{ child.weight_kg }}</li>
+                    <li><strong>Height (cm):</strong> {{ child.height_cm }}</li>
+                </ul>
+            </div>
+
+            <div class="results-section">
+                <h2>Product Selected</h2>
+                <ul>
+                    <li><strong>Name:</strong> {{ product.name }}</li>
+                    <li><strong>Category:</strong> {{ product.category }}</li>
+                    <li><strong>Description:</strong> {{ product.description }}</li>
+                    <li><strong>Requirements:</strong> {{ product.requirements }}</li>
+                </ul>
+            </div>
+
+            <div class="safety-result {% if is_compatible %}safe{% else %}unsafe{% endif %}">
+                {% if is_compatible %}
+                    <strong>SAFE: This product is suitable for the child!</strong>
+                {% else %}
+                    <strong>UNSAFE: This product is NOT suitable for the child.</strong>
+                {% endif %}
+            </div>
+
+            {% if not is_compatible %}
+                <div class="issues-list">
+                    <h3>Issues Found:</h3>
+                    <ul>
+                    {% for issue in issues %}
+                        <li>{{ issue }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <a href="/" class="back-link">Back to Form</a>
+        </div>
+    </div>
+</body>
+</html> 
